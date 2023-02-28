@@ -6,6 +6,16 @@ FROM actor
 GROUP BY last_name
 HAVING COUNT(*) = 1;
 
+SELECT first_name, last_name
+FROM actor
+WHERE last_name NOT IN (
+  SELECT last_name
+  FROM actor
+  GROUP BY last_name
+  HAVING COUNT(*) > 1
+)
+ORDER BY last_name, first_name;
+
 # 2. Which last names appear more than once? We would use the same logic as in the previous question but this time we want to include the last names of the actors where the last name was present more than once
 SELECT last_name
 FROM actor
